@@ -47,6 +47,7 @@
       :name="category.name"
       :emojis="category.emojis"
       :emoji-props="emojiProps"
+      @clear="onClearClick"
     />
   </div>
 
@@ -85,6 +86,7 @@ const CUSTOM_CATEGORY = { id: 'custom', name: 'Custom', emojis: [] }
 const I18N = {
   search: 'Search',
   notfound: 'No Emoji Found',
+  clear: 'Clear',
   categories: {
     search: 'Search Results',
     recent: 'Frequently Used',
@@ -291,7 +293,13 @@ export default {
       store.update({ skin })
 
       this.$emit('skin-change', skin)
-    }
+    },
+    onClearClick() {
+      frequently.clear()
+      this.categories.shift()
+      this.categories[0].first = true
+      this.activeCategory = this.filteredCategories[0]
+    },
   },
   components: {
     Anchors,
