@@ -2,7 +2,12 @@
 
 <div :class="{ 'emoji-mart-category': true, 'emoji-mart-no-results': !hasResults }" v-if="isVisible && (isSearch || hasResults)">
   <div class="emoji-mart-category-label">
-    <span>{{ i18n.categories[id] }}</span>
+    <span>{{ i18n.categories[id] }}<a
+        v-if="id === 'recent'"
+        href="javascript://"
+        class="clear-btn"
+        @click="$emit('clear')"
+      >{{ i18n.clear }}</a></span>
   </div>
 
   <nimble-emoji
@@ -83,7 +88,7 @@ export default {
   },
   components: {
     NimbleEmoji
-  }
+  },
 }
 
 </script>
@@ -129,6 +134,12 @@ export default {
   padding: 5px 6px;
   background-color: #fff;
   background-color: rgba(255, 255, 255, .95);
+}
+
+.emoji-mart-category-label .clear-btn {
+  float: right;
+  color: #222427;
+  text-decoration: none;
 }
 
 .emoji-mart-no-results {
