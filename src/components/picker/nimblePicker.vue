@@ -332,7 +332,7 @@ export default {
   font-size: 16px;
   display: flex;
   flex-direction: column;
-  height: 420px;
+  height: 340px;
   color: #222427;
   border: 1px solid #d9d9d9;
   border-radius: 5px;
@@ -359,7 +359,7 @@ export default {
   position: relative;
   overflow-y: scroll;
   flex: 1;
-  padding: 0 6px 6px 6px;
+  padding: 0;
   z-index: 0; /* Fix for rendering sticky positioned category labels on Chrome */
   will-change: transform; /* avoids "repaints on scroll" in mobile Chrome */
   -webkit-overflow-scrolling: touch;
