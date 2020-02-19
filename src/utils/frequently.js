@@ -1,22 +1,23 @@
 import store from './store'
 
+const DEFAULT_ROW = 2
 const DEFAULTS = [
-  '+1',
-  'grinning',
-  'kissing_heart',
-  'heart_eyes',
-  'laughing',
-  'stuck_out_tongue_winking_eye',
-  'sweat_smile',
-  'joy',
-  'scream',
-  'disappointed',
-  'unamused',
-  'weary',
-  'sob',
-  'sunglasses',
-  'heart',
-  'poop',
+  // '+1',
+  // 'grinning',
+  // 'kissing_heart',
+  // 'heart_eyes',
+  // 'laughing',
+  // 'stuck_out_tongue_winking_eye',
+  // 'sweat_smile',
+  // 'joy',
+  // 'scream',
+  // 'disappointed',
+  // 'unamused',
+  // 'weary',
+  // 'sob',
+  // 'sunglasses',
+  // 'heart',
+  // 'poop',
 ]
 
 let frequently, initialized
@@ -39,9 +40,18 @@ function add(emoji) {
   store.set('frequently', frequently)
 }
 
+function clear() {
+  store.set('last', '')
+  store.set('frequently', '')
+}
+
 function get(perLine) {
   if (!initialized) init()
   if (!frequently) {
+    if (!DEFAULTS.length) {
+      return []
+    }
+
     defaults = {}
 
     const result = []
@@ -54,7 +64,7 @@ function get(perLine) {
     return result
   }
 
-  const quantity = perLine * 4
+  const quantity = perLine * DEFAULT_ROW
   const frequentlyKeys = []
 
   for (let key in frequently) {
@@ -78,4 +88,4 @@ function get(perLine) {
   return sliced
 }
 
-export default { add, get }
+export default { add, get, clear, }
