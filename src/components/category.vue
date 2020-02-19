@@ -97,6 +97,8 @@ export default {
 
 .emoji-mart-category {
   position: relative;
+  padding: 4px 5px;
+  border-bottom: 1px solid #ebebeb;
 }
 
 .emoji-mart-category-label {
@@ -130,15 +132,17 @@ export default {
 .emoji-mart-category-label span {
   display: block;
   width: 100%;
-  font-weight: 500;
-  padding: 5px 6px;
+  font-weight: 400;
+  padding: 10px 6px 5px 6px;
   background-color: #fff;
   background-color: rgba(255, 255, 255, .95);
+  color: #333333;
+  font-size: 14px;
 }
 
 .emoji-mart-category-label .clear-btn {
   float: right;
-  color: #222427;
+  color: #333333;
   text-decoration: none;
 }
 
