@@ -8,12 +8,12 @@
 
 ## Installation
 
-`npm install --save emoji-mart-vue`
+`npm install --save emoji-mart-vue-2`
 
 ## Components
 ### Picker
 ```js
-import { Picker } from 'emoji-mart-vue'
+import { Picker } from 'emoji-mart-vue-2'
 ```
 
 ```html
@@ -106,8 +106,8 @@ While all sets are available by default, you may want to include only a single s
 To use these data files (or any other custom data), use the `NimblePicker` component:
 
 ```js
-import data from 'emoji-mart-vue/data/messenger.json'
-import { NimblePicker } from 'emoji-mart-vue'
+import data from 'emoji-mart-vue-2/data/messenger.json'
+import { NimblePicker } from 'emoji-mart-vue-2'
 ```
 
 ```html
@@ -153,7 +153,7 @@ import { NimblePicker } from 'emoji-mart-vue'
 
 ### Emoji
 ```js
-import { Emoji } from 'emoji-mart-vue'
+import { Emoji } from 'emoji-mart-vue-2'
 ```
 
 ```html
@@ -204,7 +204,7 @@ function emojiFallback(emoji) {
 You can provide custom emojis which will show up in their own category.
 
 ```js
-import { Picker } from 'emoji-mart-vue'
+import { Picker } from 'emoji-mart-vue-2'
 
 const customEmojis = [
   {
@@ -226,7 +226,7 @@ const customEmojis = [
 The `Picker` doesn’t have to be mounted for you to take advantage of the advanced search results.
 
 ```js
-import { emojiIndex } from 'emoji-mart-vue'
+import { emojiIndex } from 'emoji-mart-vue-2'
 
 emojiIndex.search('christmas').map((o) => o.native)
 // => [🎄, 🎅🏼, 🔔, 🎁, ⛄️, ❄️]
@@ -234,8 +234,8 @@ emojiIndex.search('christmas').map((o) => o.native)
 
 ### With custom data
 ```js
-import data from 'emoji-mart-vue/data/messenger'
-import { NimbleEmojiIndex } from 'emoji-mart-vue'
+import data from 'emoji-mart-vue-2/data/messenger'
+import { NimbleEmojiIndex } from 'emoji-mart-vue-2'
 
 let emojiIndex = new NimbleEmojiIndex(data)
 emojiIndex.search('christmas')
@@ -245,7 +245,7 @@ emojiIndex.search('christmas')
 By default EmojiMart will store user chosen skin and frequently used emojis in `localStorage`. That can however be overwritten should you want to store these in your own storage.
 
 ```js
-import { store } from 'emoji-mart-vue'
+import { store } from 'emoji-mart-vue-2'
 
 store.setHandlers({
   getter: (key) => {
