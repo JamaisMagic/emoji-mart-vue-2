@@ -11,7 +11,7 @@
   </div>
 
   <nimble-emoji
-    v-for="emoji in emojis"
+    v-for="emoji in renderEmojis"
     :key="emoji.id || emoji"
     :data="data"
     :emoji="emoji"
@@ -50,6 +50,11 @@
 import NimbleEmoji from './emoji/nimbleEmoji'
 
 export default {
+  data() {
+    return {
+      renderEmojis: [],
+    }
+  },
   props: {
     data: {
       type: Object,
@@ -85,6 +90,28 @@ export default {
     hasResults() {
       return this.emojis.length > 0
     }
+  },
+  watch: {
+    emojis: {
+      handler(val) {
+        if (!val) {
+          return
+        }
+        if (val.length <= 50) {
+          this.$nextTick(() => {
+            this.renderEmojis = val
+          })
+          return
+        }
+        this.$nextTick(() => {
+          this.renderEmojis = val.slice(0, 50)
+          window.setTimeout(() => {
+            this.renderEmojis = val
+          }, 0)
+        })
+      },
+      immediate: true,
+    },
   },
   components: {
     NimbleEmoji
