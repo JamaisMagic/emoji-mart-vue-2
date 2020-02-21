@@ -299,6 +299,7 @@ export default {
       this.categories.shift()
       this.categories[0].first = true
       this.activeCategory = this.filteredCategories[0]
+      this.recentEmojis = []
     },
   },
   components: {
