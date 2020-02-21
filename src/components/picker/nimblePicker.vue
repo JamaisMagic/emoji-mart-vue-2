@@ -37,7 +37,7 @@
       :emoji-props="emojiProps"
     />
     <category
-      v-for="category in filteredCategories"
+      v-for="category in renderedCategories"
       v-show="!searchEmojis && (infiniteScroll || category == activeCategory)"
       ref="categories"
       :key="category.id"
@@ -147,7 +147,8 @@ export default {
       previewEmoji: null,
       searchEmojis: null,
       customEmojis: customEmojis,
-      recentEmojis: recentEmojis
+      recentEmojis: recentEmojis,
+      renderedCategories: [],
     }
   },
   computed: {
@@ -216,6 +217,9 @@ export default {
 
     this.categories[0].first = true
     this.activeCategory = this.filteredCategories[0]
+  },
+  mounted() {
+    this.addRenderCategories();
   },
   methods: {
     onScroll() {
@@ -300,6 +304,15 @@ export default {
       this.categories[0].first = true
       this.activeCategory = this.filteredCategories[0]
       this.recentEmojis = []
+      this.renderedCategories = [...this.filteredCategories]
+    },
+    addRenderCategories() {
+      this.$nextTick(() => {
+        this.renderedCategories = [this.filteredCategories[0]]
+        window.setTimeout(() => {
+          this.renderedCategories = [...this.filteredCategories]
+        }, 0)
+      });
     },
   },
   components: {
