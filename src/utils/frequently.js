@@ -43,6 +43,8 @@ function add(emoji) {
 function clear() {
   store.set('last', '')
   store.set('frequently', '')
+  initialized = false;
+  frequently = '';
 }
 
 function get(perLine) {
