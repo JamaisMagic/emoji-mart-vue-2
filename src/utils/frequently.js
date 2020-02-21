@@ -44,7 +44,8 @@ function clear() {
   store.set('last', '')
   store.set('frequently', '')
   initialized = false;
-  frequently = '';
+  frequently = ''
+  defaults = {}
 }
 
 function get(perLine) {
