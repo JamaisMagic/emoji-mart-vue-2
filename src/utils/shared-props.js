@@ -143,7 +143,13 @@ const PickerProps = {
     default() {
       return {}
     }
-  }
+  },
+  anchorsIcons: {
+    type: Object,
+    default() {
+      return {}
+    },
+  },
 }
 
 export {

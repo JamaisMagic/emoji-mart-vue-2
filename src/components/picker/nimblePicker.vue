@@ -8,6 +8,7 @@
       :color="color"
       :categories="filteredCategories"
       :active-category="activeCategory"
+      :icons="anchorsIcons"
       @click="onAnchorClick"
     />
   </div>
@@ -36,9 +37,10 @@
       :emojis="searchEmojis"
       :emoji-props="emojiProps"
     />
+     
     <category
       v-for="category in renderedCategories"
-      v-show="!searchEmojis && (infiniteScroll || category == activeCategory) && category.name !== 'Custom'"
+      v-show="!searchEmojis && (infiniteScroll || category == activeCategory)"
       ref="categories"
       :key="category.id"
       :data="mutableData"
@@ -48,18 +50,6 @@
       :emojis="category.emojis"
       :emoji-props="emojiProps"
       @clear="onClearClick"
-    />
-    <CategoryCustom
-      v-for="category in renderedCategories"
-      v-show="!searchEmojis && category.name === 'Custom'"
-      ref="categories"
-      :key="category.id + 'custom'"
-      :data="mutableData"
-      :i18n="mutableI18n"
-      :id="category.id"
-      :name="category.name"
-      :emojis="category.emojis"
-      :emoji-props="emojiProps"
       @unlock="(data) => $emit('unlock', data)"
     />
   </div>
@@ -90,7 +80,6 @@ import { uncompress } from '../../utils/data'
 import { PickerProps } from '../../utils/shared-props'
 import Anchors from '../anchors'
 import Category from '../category'
-import CategoryCustom from '../categoryCustom'
 import Preview from '../preview'
 import Search from '../search'
 
@@ -228,8 +217,8 @@ export default {
     CUSTOM_CATEGORY.emojis = this.customEmojis
 
     this.categories.push(RECENT_CATEGORY)
-    this.categories.push(...categories)
     this.categories.push(CUSTOM_CATEGORY)
+    this.categories.push(...categories)
 
     this.categories[0].first = true
     this.activeCategory = this.filteredCategories[0]
@@ -336,7 +325,6 @@ export default {
     Category,
     Preview,
     Search,
-    CategoryCustom
   }
 }
 
