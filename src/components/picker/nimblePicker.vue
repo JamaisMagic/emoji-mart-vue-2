@@ -38,7 +38,7 @@
     />
     <category
       v-for="category in renderedCategories"
-      v-show="!searchEmojis && (infiniteScroll || category == activeCategory)"
+      v-show="!searchEmojis && (infiniteScroll || category == activeCategory) && category.name !== 'Custom'"
       ref="categories"
       :key="category.id"
       :data="mutableData"
@@ -48,6 +48,19 @@
       :emojis="category.emojis"
       :emoji-props="emojiProps"
       @clear="onClearClick"
+    />
+    <CategoryCustom
+      v-for="category in renderedCategories"
+      v-show="!searchEmojis && category.name === 'Custom'"
+      ref="categories"
+      :key="category.id + 'custom'"
+      :data="mutableData"
+      :i18n="mutableI18n"
+      :id="category.id"
+      :name="category.name"
+      :emojis="category.emojis"
+      :emoji-props="emojiProps"
+      @unlock="(data) => $emit('unlock', data)"
     />
   </div>
 
@@ -77,6 +90,7 @@ import { uncompress } from '../../utils/data'
 import { PickerProps } from '../../utils/shared-props'
 import Anchors from '../anchors'
 import Category from '../category'
+import CategoryCustom from '../categoryCustom'
 import Preview from '../preview'
 import Search from '../search'
 
@@ -87,6 +101,7 @@ const I18N = {
   search: 'Search',
   notfound: 'No Emoji Found',
   clear: 'Clear',
+  unlock: 'Unlock',
   categories: {
     search: 'Search Results',
     recent: 'Frequently Used',
@@ -162,7 +177,7 @@ export default {
       return {
         native: this.native,
         skin: this.activeSkin,
-        size: this.emojiSize,
+        size: this.emojiSize + '',
         set: this.set,
         sheetSize: this.sheetSize,
         forceSize: this.native,
@@ -170,7 +185,8 @@ export default {
         backgroundImageFn: this.backgroundImageFn,
         onEnter: this.onEmojiEnter.bind(this),
         onLeave: this.onEmojiLeave.bind(this),
-        onClick: this.onEmojiClick.bind(this)
+        onClick: this.onEmojiClick.bind(this),
+        sizeL: '68',
       }
     },
     skinProps() {
@@ -319,7 +335,8 @@ export default {
     Anchors,
     Category,
     Preview,
-    Search
+    Search,
+    CategoryCustom
   }
 }
 
