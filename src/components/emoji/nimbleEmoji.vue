@@ -5,7 +5,7 @@
   <span v-else-if="isNative" :title="title" :style="nativeEmojiStyles">{{ nativeEmoji }}</span>
   <span v-else-if="hasEmoji" :title="title" :style="fallbackEmojiStyles"></span>
   <span v-else>{{ fallbackEmoji }}</span>
-  <span v-if="isLocked" class="locked-mask" :style="unlockMaskStyle">{{ i18n ? i18n.unlock : '' }}</span>
+  <span v-if="!hideLockMask && isLocked" class="locked-mask" :style="unlockMaskStyle">{{ i18n ? i18n.unlock : '' }}</span>
 </span>
 
 </template>
@@ -25,12 +25,11 @@ export default {
       type: Object,
       required: true
     },
-    size: {
-      type: String,
-      default: ''
-    },
     i18n: {
       type: Object,
+    },
+    hideLockMask: {
+      type: Boolean,
     },
   },
   data() {

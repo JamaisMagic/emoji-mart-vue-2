@@ -39,7 +39,11 @@ const EmojiProps = {
   emoji: {
     type: [String, Object],
     required: true
-  }
+  },
+  sizeL: {
+    type: Number,
+    default: 68
+  },
 }
 
 const PickerProps = {
@@ -149,6 +153,18 @@ const PickerProps = {
     default() {
       return {}
     },
+  },
+  hideLockMask: {
+    type: Boolean,
+    default: false,
+  },
+  sizeL: {
+    type: Number,
+    default: 68
+  },
+  sizeType: {
+    type: String,
+    default: ''
   },
 }
 

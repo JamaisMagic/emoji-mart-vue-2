@@ -166,7 +166,7 @@ export default {
       return {
         native: this.native,
         skin: this.activeSkin,
-        size: this.emojiSize + '',
+        size: this.emojiSize,
         set: this.set,
         sheetSize: this.sheetSize,
         forceSize: this.native,
@@ -175,7 +175,8 @@ export default {
         onEnter: this.onEmojiEnter.bind(this),
         onLeave: this.onEmojiLeave.bind(this),
         onClick: this.onEmojiClick.bind(this),
-        sizeL: '68',
+        sizeL: this.sizeL,
+        hideLockMask: this.hideLockMask,
       }
     },
     skinProps() {
