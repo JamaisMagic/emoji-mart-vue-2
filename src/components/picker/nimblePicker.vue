@@ -8,6 +8,7 @@
       :color="color"
       :categories="filteredCategories"
       :active-category="activeCategory"
+      :icons="anchorsIcons"
       @click="onAnchorClick"
     />
   </div>
@@ -36,6 +37,7 @@
       :emojis="searchEmojis"
       :emoji-props="emojiProps"
     />
+     
     <category
       v-for="category in renderedCategories"
       v-show="!searchEmojis && (infiniteScroll || category == activeCategory)"
@@ -48,6 +50,7 @@
       :emojis="category.emojis"
       :emoji-props="emojiProps"
       @clear="onClearClick"
+      @unlock="(data) => $emit('unlock', data)"
     />
   </div>
 
@@ -87,6 +90,7 @@ const I18N = {
   search: 'Search',
   notfound: 'No Emoji Found',
   clear: 'Clear',
+  unlock: 'Unlock',
   categories: {
     search: 'Search Results',
     recent: 'Frequently Used',
@@ -170,7 +174,9 @@ export default {
         backgroundImageFn: this.backgroundImageFn,
         onEnter: this.onEmojiEnter.bind(this),
         onLeave: this.onEmojiLeave.bind(this),
-        onClick: this.onEmojiClick.bind(this)
+        onClick: this.onEmojiClick.bind(this),
+        sizeL: this.sizeL,
+        hideLockMask: this.hideLockMask,
       }
     },
     skinProps() {
@@ -212,8 +218,8 @@ export default {
     CUSTOM_CATEGORY.emojis = this.customEmojis
 
     this.categories.push(RECENT_CATEGORY)
-    this.categories.push(...categories)
     this.categories.push(CUSTOM_CATEGORY)
+    this.categories.push(...categories)
 
     this.categories[0].first = true
     this.activeCategory = this.filteredCategories[0]
@@ -319,7 +325,7 @@ export default {
     Anchors,
     Category,
     Preview,
-    Search
+    Search,
   }
 }
 

@@ -3,7 +3,12 @@
 <div :class="{ 'emoji-mart-category': true, 'emoji-mart-no-results': !hasResults }" v-if="isVisible && (isSearch || hasResults)">
   <div class="emoji-mart-category-label">
     <span>{{ i18n.categories[id] }}<a
-        v-if="id === 'recent'"
+        v-if="isLockedGroup"
+        href="javascript://"
+        class="clear-btn"
+        @click="$emit('unlock')"
+      >{{ i18n.unlock }}</a><a
+        v-else-if="id === 'recent'"
         href="javascript://"
         class="clear-btn"
         @click="$emit('clear')"
@@ -18,12 +23,15 @@
     :native="emojiProps.native"
     :skin="emojiProps.skin"
     :set="emojiProps.set"
-    :size="emojiProps.size"
+    :size="emoji.sizeType === 'large' ? emojiProps.sizeL : emojiProps.size"
     :sheet-size="emojiProps.sheetSize"
     :force-size="emojiProps.forceSize"
     :tooltip="emojiProps.tooltip"
     :background-image-fn="emojiProps.backgroundImageFn"
+    :i18n="i18n"
+    :hide-lock-mask="emojiProps.hideLockMask"
     @click="emojiProps.onClick"
+    @unlock="(data) => $emit('unlock', data)"
     @mouseenter="emojiProps.onEnter"
     @mouseleave="emojiProps.onLeave"
   />
@@ -89,7 +97,13 @@ export default {
     },
     hasResults() {
       return this.emojis.length > 0
-    }
+    },
+    isLockedGroup() {
+      if (!this.emojis || this.emojis.length <= 0) {
+        return false
+      }
+      return this.emojis.every((item) => item.locked)
+    },
   },
   watch: {
     emojis: {
