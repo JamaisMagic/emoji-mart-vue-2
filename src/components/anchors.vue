@@ -8,7 +8,8 @@
     :style="{ 'color': (category.id == activeCategory.id ? color : '') }"
     :title="i18n.categories[category.id]"
     @click="$emit('click', category)">
-    <div v-html="svgs[category.id]"/>
+    <div class="icon" v-if="icons && icons[category.id]" :style="getIconStyle(category.id)"></div>
+    <div v-else v-html="svgs[category.id]"/>
     <span class="emoji-mart-anchor-bar" :style="{ backgroundColor: color }"></span>
   </span>
 </div>
@@ -28,6 +29,9 @@ export default {
     color: {
       type: String
     },
+    icons: {
+      type: Object
+    },
     categories: {
       type: Array,
       required: true
@@ -41,7 +45,17 @@ export default {
   },
   created() {
     this.svgs = svgs
-  }
+  },
+  methods: {
+    getIconStyle(categoryId) {
+      if (!this.icons[categoryId]) {
+        return {};
+      }
+      return {
+        backgroundImage: `url(${this.icons[categoryId]})`,
+      };
+    },
+  },
 }
 
 </script>
@@ -86,6 +100,14 @@ export default {
   display: inline-block;
   width: 100%;
   max-width: 22px;
+}
+
+.emoji-mart-anchors .icon {
+  width: 24px;
+  height: 18px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
 }
 
 </style>
